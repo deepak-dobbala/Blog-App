@@ -3,3 +3,47 @@ GET http://localhost:4000/users-api/users
 
 ###
 GET http://localhost:4000/authors-api/authors
+
+###
+POST http://localhost:4000/auth/register
+Content-Type: application/json
+
+{
+  "userType": "author",
+  "username": "Rahul",
+  "password": "rahulmayya",
+  "email": "rahul@example.com"
+}
+
+###
+POST http://localhost:4000/auth/register
+Content-Type: application/json
+
+{
+  "userType": "user",
+  "username": "Deepak",
+  "password": "Vyshu2412",
+  "email": "deepak@example.com"
+}
+
+###
+POST http://localhost:4000/auth/login
+Content-Type: application/json
+
+{
+  "userType": "user",
+  "username": "Deepak",
+  "password": "Vyshu2412",
+  "email": "deepak@example.com"
+}
+
+###
+POST http://localhost:4000/auth/login
+Content-Type: application/json
+
+{
+  "userType": "author",
+  "username": "Rahul",
+  "password": "rahulmayya",
+  "email": "rahul@example.com"
+}

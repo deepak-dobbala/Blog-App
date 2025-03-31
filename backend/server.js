@@ -5,6 +5,7 @@ const app = exp();
 const portno = process.env.PORT || 4000;  
 let userAPI = require('./APIs/userAPI');
 let authorAPI = require('./APIs/authorAPI');
+let AuthAPI = require('./APIs/Utils');
 
 mongoconnect().then(({usersCollection,authorsCollection})=>{
     app.use(exp.json());
@@ -14,6 +15,7 @@ mongoconnect().then(({usersCollection,authorsCollection})=>{
 
     app.use('/users-api',userAPI(usersCollection));
     app.use('/authors-api',authorAPI(authorsCollection));
+    app.use('/auth',AuthAPI(authorsCollection,usersCollection));
     app.use((err, req, res, next) => {
         console.error('Error:', err);
         res.status(500).send('Something went wrong!');
