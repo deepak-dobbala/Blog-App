@@ -10,8 +10,10 @@ let mongoconnect = async () => {
 
         const usersCollection = db.collection("users");
         const authorsCollection = db.collection("authors");
+        const articlesCollection = db.collection("articles");
 
-        return { usersCollection, authorsCollection }; 
+
+        return { usersCollection, authorsCollection, articlesCollection }; 
     } catch (error) {
         console.error("Error connecting to MongoDB", error);
         process.exit(1);

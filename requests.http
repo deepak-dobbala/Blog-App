@@ -20,6 +20,16 @@ POST http://localhost:4000/auth/register
 Content-Type: application/json
 
 {
+  "userType": "author",
+  "username": "Varun",
+  "password": "varunmayya",
+  "email": "varun@example.com"
+}
+###
+POST http://localhost:4000/auth/register
+Content-Type: application/json
+
+{
   "userType": "user",
   "username": "Deepak",
   "password": "Vyshu2412",
@@ -46,4 +56,74 @@ Content-Type: application/json
   "username": "Rahul",
   "password": "rahulmayya",
   "email": "rahul@example.com"
+}
+
+
+###
+POST http://localhost:4000/authors-api/new-article
+Content-Type: application/json
+
+{
+  "articleID":"{{$timestamp}}",
+  "title": "My first article",
+  "category": "English Literature",
+  "content": "English literature is the study of literature written in the English language. It includes works from various genres, periods, and regions, and encompasses a wide range of themes and styles. From the epic poetry of Beowulf to the modern novels of contemporary authors, English literature reflects the evolution of language, culture, and society over time.",
+  "dateofcreation": "{{$timestamp iso8601}}",
+  "dateofmodification" : "{{$timestamp iso8601}}",
+  "username": "Rahul",
+  "comments": [],
+  "status": true
+}
+
+###
+POST http://localhost:4000/authors-api/new-article
+Content-Type: application/json
+
+{
+  "articleID":"{{$timestamp}}",
+  "title": "My first article",
+  "category": "English Literature",
+  "content": "English literature is the study of literature written in the English language. It includes works from various genres, periods, and regions, and encompasses a wide range of themes and styles. From the epic poetry of Beowulf to the modern novels of contemporary authors, English literature reflects the evolution of language, culture, and society over time.",
+  "dateofcreation": "{{$timestamp iso8601}}",
+  "dateofmodification" : "{{$timestamp iso8601}}",
+  "username": "Varun",
+  "comments": [],
+  "status": true
+}
+###
+POST http://localhost:4000/authors-api/edit-article/1743422360
+Content-Type: application/json
+
+{
+  "articleID":"1743422360",
+  "title": "My first article - edited",
+  "category": "Programming",
+  "content": "Programming language is a language used to write computer programs. It consists of a set of instructions that can be executed by a computer to perform specific tasks. Programming languages can be classified into various categories, such as high-level languages, low-level languages, and domain-specific languages. Examples of popular programming languages include Python, Java, C++, and JavaScript.",
+  "dateofcreation": "1743422360",
+  "dateofmodification" : "{{$timestamp iso8601}}",
+  "username": "Rahul",
+  "comments": [],
+  "status": true
+}
+
+###
+POST http://localhost:4000/authors-api/delete-article/1743422360
+
+###
+GET http://localhost:4000/authors-api/articles/Rahul
+
+###
+GET http://localhost:4000/authors-api/articles/Varun
+
+###
+GET http://localhost:4000/users-api/articles
+
+###
+POST http://localhost:4000/users-api/comment/1743422360
+Content-Type: application/json
+
+{
+  "articleID":"1743422360",
+  "comment": "This is awsome!",
+  "username": "Deepak"
 }

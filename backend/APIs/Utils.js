@@ -1,11 +1,12 @@
 const exp= require('express');
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const expressasynchandler = require('express-async-handler');
 require('dotenv').config();
 AuthAPI=exp.Router()
 
 module.exports=(authorsCollection,usersCollection)=>{
-    AuthAPI.post('/login',async(req,res)=>{
+    AuthAPI.post('/login',expressasynchandler(async(req,res)=>{
         const userCred=req.body;
         //check if user exists
         let userorauthor;
@@ -35,8 +36,8 @@ module.exports=(authorsCollection,usersCollection)=>{
         if (userCred.userType=='user'){
             res.send({message:'User Logged in successfully',token:token,payload:userorauthor});
         }
-    });
-    AuthAPI.post('/register',async(req,res)=>{
+    }));
+    AuthAPI.post('/register',expressasynchandler(async(req,res)=>{
         const userCred=req.body;
         //check if user exists
         if(userCred.userType=='author'){
@@ -61,8 +62,13 @@ module.exports=(authorsCollection,usersCollection)=>{
         if(userCred.userType=='user'){
             await usersCollection.insertOne(userCred);
         }
-        res.send({message:'User Registered successfully',payload:userCred});
+        if(userCred.userType=='author'){
+            res.send({message:'Author Registered successfully',payload:userCred});
+        }
+        if(userCred.userType=='user'){
+            res.send({message:'User Registered successfully',payload:userCred});
+        }
 
-    });
+    }));
     return AuthAPI;
 };

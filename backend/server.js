@@ -7,14 +7,15 @@ let userAPI = require('./APIs/userAPI');
 let authorAPI = require('./APIs/authorAPI');
 let AuthAPI = require('./APIs/Utils');
 
-mongoconnect().then(({usersCollection,authorsCollection})=>{
+mongoconnect().then(({usersCollection,authorsCollection,articlesCollection})=>{
     app.use(exp.json());
 
     app.locals.usersCollection = usersCollection;
     app.locals.authorsCollection = authorsCollection;
+    app.locals.articlesCollection = articlesCollection;
 
-    app.use('/users-api',userAPI(usersCollection));
-    app.use('/authors-api',authorAPI(authorsCollection));
+    app.use('/users-api',userAPI(usersCollection,articlesCollection));
+    app.use('/authors-api',authorAPI(authorsCollection,articlesCollection));
     app.use('/auth',AuthAPI(authorsCollection,usersCollection));
     app.use((err, req, res, next) => {
         console.error('Error:', err);

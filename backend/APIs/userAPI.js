@@ -1,25 +1,19 @@
 const exp = require('express');
+const expressasynchandler = require('express-async-handler');
 
-module.exports = (usersCollection) => {
+module.exports = (usersCollection, articlesCollection) => {
     const userAPI = exp.Router();
 
-    userAPI.get('/users', async (req, res, next) => {
-        try {
-            if (!usersCollection) {
-                throw new Error('Database not initialized');
-            }
-            const userslist = await usersCollection.find().toArray();
-            if (userslist.length === 0) {
-                return res.status(404).json({ message: "No users found" });
-            }
-            res.status(200).json({
-                message: 'Users retrieved successfully',
-                payload: userslist
-            });
-        } catch (err) {
-            next(err);
-        }
-    });
+    userAPI.get('/articles', expressasynchandler(async (req, res) => { // Removed `err`
+        let articles = await articlesCollection.find({ status: true }).toArray();
+        res.status(200).send({ message: "All articles Retrieved", payload: articles });
+    }));
+    userAPI.post('/comment/:articleid',expressasynchandler(async (req, res) => {
+        let articleid=req.params.articleid
+        let comment = req.body.comment;
+        await articlesCollection.updateOne({articleID:articleid}, {$addToSet: {comments: comment}});
+        res.status(200).send({ message: "Comment added successfully" });
+    }));
 
     return userAPI;
 };
