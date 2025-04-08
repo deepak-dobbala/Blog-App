@@ -1,23 +1,26 @@
-import logo from './logo.svg';
 import './App.css';
+import Home from './components/home';
+import Login from './components/Login';
+import Register from './components/Register';
+import Layout from './components/Layout';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 function App() {
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Layout />, // ⬅️ Your layout with header/footer
+      children: [
+        { index: true, element: <Home /> }, // path: "" (i.e., "/")
+        { path: "login", element: <Login /> },
+        { path: "register", element: <Register /> }
+      ]
+    }
+  ]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <RouterProvider router={router} />
     </div>
   );
 }

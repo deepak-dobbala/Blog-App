@@ -10,7 +10,7 @@ module.exports = (usersCollection, articlesCollection) => {
     }));
     userAPI.post('/comment/:articleid',expressasynchandler(async (req, res) => {
         let articleid=req.params.articleid
-        let comment = req.body.comment;
+        let comment = req.body;
         await articlesCollection.updateOne({articleID:articleid}, {$addToSet: {comments: comment}});
         res.status(200).send({ message: "Comment added successfully" });
     }));
