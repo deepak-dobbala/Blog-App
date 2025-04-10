@@ -7,7 +7,7 @@ function Layout() {
   return (
     <>
       <Header />
-      <div style={{ minHeight: "89vh" }}>
+      <div style={{ minHeight: "83vh" }}>
         <Outlet /> {/* nested page like Home, Login, etc. will render here */}
       </div>
       <Footer />

@@ -1,5 +1,6 @@
 const exp = require('express');
 const mongoconnect = require('./db');
+const path=require('path');
 require('dotenv').config();
 const app = exp();
 const portno = process.env.PORT || 4000;  
@@ -9,7 +10,8 @@ let AuthAPI = require('./APIs/Utils');
 
 mongoconnect().then(({usersCollection,authorsCollection,articlesCollection})=>{
     app.use(exp.json());
-
+    app.use(exp.static(path.join(__dirname,'../frontend/build')));
+    app.use(exp.urlencoded({extended:true}));
     app.locals.usersCollection = usersCollection;
     app.locals.authorsCollection = authorsCollection;
     app.locals.articlesCollection = articlesCollection;

@@ -10,7 +10,6 @@ function Login() {
 
   const onSubmit = (data) => {
     console.log(data)
-    // you can now send this data to your backend
   }
 
   return (

@@ -9,9 +9,9 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Layout />, // ⬅️ Your layout with header/footer
+      element: <Layout />, 
       children: [
-        { index: true, element: <Home /> }, // path: "" (i.e., "/")
+        { index: true, element: <Home /> },
         { path: "login", element: <Login /> },
         { path: "register", element: <Register /> }
       ]

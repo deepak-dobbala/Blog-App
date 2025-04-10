@@ -40,6 +40,7 @@ module.exports=(authorsCollection,usersCollection)=>{
     AuthAPI.post('/register',expressasynchandler(async(req,res)=>{
         const userCred=req.body;
         //check if user exists
+        console.log(userCred);
         if(userCred.userType=='author'){
             const author=await authorsCollection.findOne({username:userCred.username});
             if(author){
