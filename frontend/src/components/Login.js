@@ -23,14 +23,14 @@ function Login() {
           <input
             type="radio"
             value="user"
-            {...register("userTyper", { required: true })}
+            {...register("userType", { required: true })}
           /> User &nbsp;
           <input
             type="radio"
             value="author"
-            {...register("userTyper", { required: true })}
+            {...register("userType", { required: true })}
           /> Author
-          {errors.userTyper && <p className="text-danger">Please select a user type</p>}
+          {errors.userType && <p className="text-danger">Please select a user type</p>}
         </div>
 
         {/* Username */}

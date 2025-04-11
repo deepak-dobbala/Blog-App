@@ -12,6 +12,7 @@ mongoconnect().then(({usersCollection,authorsCollection,articlesCollection})=>{
     app.use(exp.json());
     app.use(exp.static(path.join(__dirname,'../frontend/build')));
     app.use(exp.urlencoded({extended:true}));
+    
     app.locals.usersCollection = usersCollection;
     app.locals.authorsCollection = authorsCollection;
     app.locals.articlesCollection = articlesCollection;
@@ -19,6 +20,9 @@ mongoconnect().then(({usersCollection,authorsCollection,articlesCollection})=>{
     app.use('/users-api',userAPI(usersCollection,articlesCollection));
     app.use('/authors-api',authorAPI(authorsCollection,articlesCollection));
     app.use('/auth',AuthAPI(authorsCollection,usersCollection));
+    app.use('*', (req, res) => {
+        res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
+    });
     app.use((err, req, res, next) => {
         console.error('Error:', err);
         res.status(500).send('Something went wrong!');

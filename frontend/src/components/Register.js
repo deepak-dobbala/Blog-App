@@ -31,7 +31,7 @@ function Register() {
                     <label className="form-label">Register As:</label><br />
                     <input type="radio" value="user" {...register("userType",{required:true})}/> User &nbsp;
                     <input type="radio" value="author" {...register("userType",{required:true})}/> Author
-                    {errors.userTyper && <p className="text-danger">Please select a user type</p>}
+                    {errors.userType && <p className="text-danger">Please select a user type</p>}
                 </div>
                 <div className="mb-3">
                     <input type="text" placeholder="Username" {...register("username",{required:true})} className="form-control"/>

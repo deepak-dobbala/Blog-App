@@ -31,16 +31,15 @@ module.exports=(authorsCollection,usersCollection)=>{
         const token=jwt.sign({username:userCred.username},process.env.JWT_SECRET_KEY,{expiresIn:'1h'});
         delete userorauthor.password;
         if (userCred.userType=='author'){
-            res.send({message:'Author Logged in successfully',token:token,payload:userorauthor});
+            res.status(200).send({message:'Author Logged in successfully',token:token,payload:userorauthor});
         }
         if (userCred.userType=='user'){
-            res.send({message:'User Logged in successfully',token:token,payload:userorauthor});
+            res.status(200).send({message:'User Logged in successfully',token:token,payload:userorauthor});
         }
     }));
     AuthAPI.post('/register',expressasynchandler(async(req,res)=>{
         const userCred=req.body;
         //check if user exists
-        console.log(userCred);
         if(userCred.userType=='author'){
             const author=await authorsCollection.findOne({username:userCred.username});
             if(author){
@@ -64,10 +63,10 @@ module.exports=(authorsCollection,usersCollection)=>{
             await usersCollection.insertOne(userCred);
         }
         if(userCred.userType=='author'){
-            res.send({message:'Author Registered successfully',payload:userCred});
+            res.status(200).send({message:'Author Registered successfully',payload:userCred});
         }
         if(userCred.userType=='user'){
-            res.send({message:'User Registered successfully',payload:userCred});
+            res.status(200).send({message:'User Registered successfully',payload:userCred});
         }
 
     }));
