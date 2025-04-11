@@ -1,15 +1,20 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import {Link} from 'react-router-dom'
+import {Link,useNavigate} from 'react-router-dom'
+import {useSelector,useDispatch} from 'react-redux'
+import {userloginThunk} from'../redux/slices/userlogin'
+
 function Login() {
   const {
     register,
     handleSubmit,
     formState: { errors }
   } = useForm()
-
+  let {isPending,userinfo,isError,error,loggedin} = useSelector(state => state.userauthorlogin)
+  let navigate = useNavigate()
+  let dispatch = useDispatch()
   const onSubmit = (data) => {
-    console.log(data)
+    dispatch(userloginThunk(data));
   }
 
   return (
@@ -53,17 +58,6 @@ function Login() {
             className="form-control"
           />
           {errors.password && <p className="text-danger">Password is required</p>}
-        </div>
-
-        {/* Email */}
-        <div className="mb-3">
-          <input
-            type="email"
-            placeholder="Email"
-            {...register("email", { required: true })}
-            className="form-control"
-          />
-          {errors.email && <p className="text-danger">Email is required</p>}
         </div>
 
         {/* Submit */}
