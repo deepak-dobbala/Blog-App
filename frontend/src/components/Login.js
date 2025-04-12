@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form'
 import {Link,useNavigate} from 'react-router-dom'
 import {useSelector,useDispatch} from 'react-redux'
 import {userloginThunk} from'../redux/slices/userlogin'
+import { useEffect } from 'react';
 
 function Login() {
   const {
@@ -16,6 +17,16 @@ function Login() {
   const onSubmit = (data) => {
     dispatch(userloginThunk(data));
   }
+
+  useEffect(() => {
+    if (loggedin) {
+      if (userinfo.userType === 'author') {
+        navigate('/authorprofile');
+      } else {
+        navigate('/userprofile');
+      }
+    }
+  }, [loggedin, userinfo, navigate]); 
 
   return (
     <div className="container mt-4">
