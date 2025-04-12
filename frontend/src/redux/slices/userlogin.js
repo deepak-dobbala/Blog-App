@@ -6,7 +6,7 @@ export const userloginThunk = createAsyncThunk(
     async (userData, thunkAPI) => {
         try {
             const response = await axios.post('/auth/login', userData);
-            localStorage.setItem('token', response.data.token);
+            sessionStorage.setItem('token', response.data.token);
             return response.data.payload;
         } catch (error) {
             alert(error.response.data.message);

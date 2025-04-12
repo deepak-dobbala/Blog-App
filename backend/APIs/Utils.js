@@ -28,7 +28,7 @@ module.exports=(authorsCollection,usersCollection)=>{
             return res.status(400).send({message:'Invalid Credentials'});
         }
         //make jwt and send response
-        const token=jwt.sign({username:userCred.username},process.env.JWT_SECRET_KEY,{expiresIn:'1h'});
+        const token=jwt.sign({username:userCred.username},process.env.JWT_SECRET_KEY,{expiresIn:'1d'});
         delete userorauthor.password;
         if (userCred.userType=='author'){
             res.status(200).send({message:'Author Logged in successfully',token:token,payload:userorauthor});
