@@ -28,6 +28,9 @@ module.exports = (authorsCollection,articlesCollection)=>{
     authorAPI.get('/articles/:authorname',verifyToken,expressasynchandler(async (req,res,err)=>{
         let authorname = req.params.authorname;
         let articles = await articlesCollection.find({username:authorname,status:true}).toArray();
+        if (articles.length===0){
+            return res.status(404).json({message:"No articles found"});
+        }
         res.status(200).json({message:"Articles Retreived",payload:articles});
     }));
 
