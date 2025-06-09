@@ -22,13 +22,13 @@ function App() {
         { path: "register", element: <Register /> },
         { path: "authorprofile", element: <Authorprofile />,children:[
           { path: "articlesbyauthor/:author", element: <Articlesbyauthor /> },
-          { path: "article/:articleId", element: <Articlecomponent /> },
+          { path: "article/:username/:articleID", element: <Articlecomponent /> },
           { path: "newarticle", element: <Newarticle /> },
           {path :'',element:<Articlesbyauthor/>}
         ]},
         { path: "userprofile", element: <Userprofile />,children:[
           {path:'articles',element:<Articles/>},
-          {path:'article/:articleId',element:<Articlecomponent/>},
+          {path:'article/:username/:articleID',element:<Articlecomponent/>},
           {path:'',element:<Articles/>}
         ]}
       ]

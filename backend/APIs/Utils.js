@@ -2,10 +2,11 @@ const exp= require('express');
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const expressasynchandler = require('express-async-handler');
+const verifyToken = require('../middleware/verifytoken');
 require('dotenv').config();
 AuthAPI=exp.Router()
 
-module.exports=(authorsCollection,usersCollection)=>{
+module.exports=(authorsCollection,usersCollection,articlesCollection)=>{
     AuthAPI.post('/login',expressasynchandler(async(req,res)=>{
         const userCred=req.body;
         //check if user exists
@@ -70,5 +71,18 @@ module.exports=(authorsCollection,usersCollection)=>{
         }
 
     }));
+
+    AuthAPI.get('/article/:username/:articleID', expressasynchandler(async (req, res) => {
+        const username = req.params.username;
+        const articleID = Number(req.params.articleID); // articleID looks like a number
+        const article = await articlesCollection.findOne({ username: username, articleID: articleID });
+        if (!article) {
+            return res.status(400).send({ message: 'Article does not exist' });
+        } else {
+            res.status(200).send({ message: 'Article retrieved successfully', payload: article });
+        }
+    }));
+    
+
     return AuthAPI;
 };

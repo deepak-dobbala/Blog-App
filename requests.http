@@ -134,5 +134,8 @@ Content-Type: application/json
 {
   "userType": "user",
   "username": "kittu",
-  "password": "kitt"
+  "password": "kittu"
 }
+
+###
+GET http://localhost:4000/auth/article/deepu/1745854282799

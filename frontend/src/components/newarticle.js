@@ -1,6 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from'react-router-dom';
+import { useSelector } from 'react-redux';
 import { axioswithtoken } from '../axioswithtoken';
 import axios from 'axios';
 
@@ -11,7 +12,7 @@ function Newarticle() {
     formState: { errors } 
   } = useForm();
 
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const {userinfo} = useSelector(state => state.userauthorlogin);
   const onSubmit = (data) => {
     data.articleID=Date.now();
@@ -20,7 +21,6 @@ function Newarticle() {
     data.username=`${userinfo.username}`;
     data.comments=[];
     data.status=true;
-    console.log(data);
     try{
       let token = sessionStorage.getItem('token')
       const axioswithtoken = axios.create({
@@ -34,7 +34,7 @@ function Newarticle() {
     catch(err){
       alert(`status`); 
     }
-
+    navigate(`/authorprofile/articlesbyauthor/${userinfo.username}`);
   };
 
   return (

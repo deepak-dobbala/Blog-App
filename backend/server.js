@@ -19,7 +19,7 @@ mongoconnect().then(({usersCollection,authorsCollection,articlesCollection})=>{
 
     app.use('/users-api',userAPI(usersCollection,articlesCollection));
     app.use('/authors-api',authorAPI(authorsCollection,articlesCollection));
-    app.use('/auth',AuthAPI(authorsCollection,usersCollection));
+    app.use('/auth',AuthAPI(authorsCollection,usersCollection,articlesCollection));
     app.use('*', (req, res) => {
         res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
     });
